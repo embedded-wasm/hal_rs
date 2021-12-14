@@ -1,0 +1,35 @@
+cargo-features = ["per-package-target"]
+
+[package]
+name = "wasm-embedded-hal"
+description = "WASM embedded-hal implementation"
+repository = "https://github.com/ryankurte/embedded-wasm"
+documentation = "https://ryan.kurte.nz/embedded-wasm"
+version = "0.1.1"
+edition = "2018"
+license = "MPL-2.0"
+forced-target = "wasm32-wasi"
+
+[features]
+tests = []
+
+[package.metadata.docs.rs]
+targets = [ "wasm32-wasi" ]
+
+[dependencies]
+embedded-hal = "1.0.0-alpha.5"
+
+[[bin]]
+name = "test-i2c"
+path = "tests/test_i2c.rs"
+required-features = [ "tests" ]
+
+[[bin]]
+name = "test-spi"
+path = "tests/test_spi.rs"
+required-features = [ "tests" ]
+
+[[bin]]
+name = "test-gpio"
+path = "tests/test_gpio.rs"
+required-features = [ "tests" ]

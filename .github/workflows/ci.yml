@@ -1,0 +1,47 @@
+name: ci
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+
+  test_spec:
+    name: Test wasm-embedded-hal (rust)
+    runs-on: ${{ matrix.os }}
+    continue-on-error: true
+    
+    strategy:
+      matrix:
+        include:
+        - target: x86_64-unknown-linux-gnu
+          os: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: FranzDiebold/github-env-vars-action@v1.2.1
+
+    - name: Configure toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+        target:  ${{ matrix.target }}
+        override: true
+        components: rustfmt, clippy
+
+    - name: Configure caching
+      uses: actions/cache@v2
+      with:
+        key: rt-${{ matrix.os }}-${{ matrix.target }}
+        path: |
+          ${{ env.HOME }}/.cargo
+          target/${{ matrix.target }}
+    
+    - name: Test HAL builds
+      run: |
+        cargo test
