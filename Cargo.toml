@@ -11,7 +11,11 @@ license = "MPL-2.0"
 forced-target = "wasm32-wasi"
 
 [features]
-tests = []
+test_spi = []
+test_i2c = []
+test_gpio = []
+
+tests = [ "test_spi", "test_i2c", "test_gpio" ]
 
 [package.metadata.docs.rs]
 targets = [ "wasm32-wasi" ]
@@ -22,14 +26,14 @@ embedded-hal = "1.0.0-alpha.5"
 [[bin]]
 name = "test-i2c"
 path = "tests/test_i2c.rs"
-required-features = [ "tests" ]
+required-features = [ "test_i2c" ]
 
 [[bin]]
 name = "test-spi"
 path = "tests/test_spi.rs"
-required-features = [ "tests" ]
+required-features = [ "test_spi" ]
 
 [[bin]]
 name = "test-gpio"
 path = "tests/test_gpio.rs"
-required-features = [ "tests" ]
+required-features = [ "test_gpio" ]
