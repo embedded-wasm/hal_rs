@@ -18,7 +18,8 @@ test_gpio = []
 tests = [ "test_spi", "test_i2c", "test_gpio" ]
 
 [package.metadata.docs.rs]
-targets = [ "wasm32-wasi" ]
+# We actually want the wasm32-wasi target but, it's tier two so not supported by docs.rs yet
+targets = [ "x86_64-unknown-linux-gnu", "wasm32-wasi" ]
 
 [dependencies]
 embedded-hal = "=1.0.0-alpha.5"
