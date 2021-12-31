@@ -1,4 +1,4 @@
-name: ci
+name: Rust HAL tests
 on:
   push:
     branches: [ main ]

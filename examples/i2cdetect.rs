@@ -5,7 +5,7 @@
 use embedded_hal::i2c::blocking::*;
 use wasm_embedded_hal::i2c::I2c;
 
-const BUS: u32 = 2;
+const BUS: u32 = 1;
 
 
 fn main() {

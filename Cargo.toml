@@ -3,7 +3,7 @@ cargo-features = ["per-package-target"]
 [package]
 name = "wasm-embedded-hal"
 description = "WASM embedded-hal implementation"
-repository = "https://github.com/ryankurte/embedded-wasm"
+repository = "https://github.com/embedded-wasm/hal_rs"
 documentation = "https://ryan.kurte.nz/embedded-wasm"
 version = "0.1.1"
 edition = "2018"
