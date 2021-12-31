@@ -21,7 +21,7 @@ tests = [ "test_spi", "test_i2c", "test_gpio" ]
 targets = [ "wasm32-wasi" ]
 
 [dependencies]
-embedded-hal = "1.0.0-alpha.5"
+embedded-hal = "=1.0.0-alpha.5"
 
 [[bin]]
 name = "test-i2c"
