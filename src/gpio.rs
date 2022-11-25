@@ -5,6 +5,8 @@ use embedded_hal::digital::blocking::*;
 use crate::Error;
 use api::{GpioMode};
 
+use self::api::GpioValue;
+
 mod api {
     #[repr(C)]
     #[derive(Copy, Clone, PartialEq, Debug)]
@@ -102,7 +104,7 @@ impl OutputPin for Gpio<Output> {
 
     fn set_high(&mut self) -> Result<(), Self::Error> {
 
-        let res = unsafe { api::set(self.handle, 1) };
+        let res = unsafe { api::set(self.handle, GpioValue::High as u32) };
 
         if res < 0 {
             return Err(Error::Runtime(res))
@@ -113,7 +115,7 @@ impl OutputPin for Gpio<Output> {
 
     fn set_low(&mut self) -> Result<(), Self::Error> {
 
-        let res = unsafe { api::set(self.handle, 0) };
+        let res = unsafe { api::set(self.handle, GpioValue::Low as u32) };
 
         if res < 0 {
             return Err(Error::Runtime(res))
