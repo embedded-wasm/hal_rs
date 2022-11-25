@@ -27,15 +27,15 @@ embedded-hal = "=1.0.0-alpha.5"
 
 [[bin]]
 name = "test-i2c"
-path = "tests/test_i2c.rs"
+path = "src/tests/test_i2c.rs"
 required-features = [ "test_i2c" ]
 
 [[bin]]
 name = "test-spi"
-path = "tests/test_spi.rs"
+path = "src/tests/test_spi.rs"
 required-features = [ "test_spi" ]
 
 [[bin]]
 name = "test-gpio"
-path = "tests/test_gpio.rs"
+path = "src/tests/test_gpio.rs"
 required-features = [ "test_gpio" ]
