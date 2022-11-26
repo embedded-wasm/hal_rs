@@ -5,7 +5,7 @@ name = "wasm-embedded-hal"
 description = "WASM embedded-hal implementation"
 repository = "https://github.com/embedded-wasm/hal_rs"
 documentation = "https://ryan.kurte.nz/embedded-wasm"
-version = "0.1.1"
+version = "0.4.0"
 edition = "2018"
 license = "MPL-2.0"
 
@@ -14,16 +14,17 @@ forced-target = "wasm32-wasi"
 [features]
 test_spi = []
 test_i2c = []
+test_uart = []
 test_gpio = []
 
-tests = [ "test_spi", "test_i2c", "test_gpio" ]
+tests = [ "test_spi", "test_i2c", "test_gpio", "test_uart" ]
 
 [package.metadata.docs.rs]
 # We actually want the wasm32-wasi target but, it's tier two so not supported by docs.rs yet
 targets = [ "x86_64-unknown-linux-gnu", "wasm32-wasi" ]
 
 [dependencies]
-embedded-hal = "=1.0.0-alpha.5"
+embedded-hal = "=1.0.0-alpha.8"
 
 [[bin]]
 name = "test-i2c"
@@ -34,6 +35,12 @@ required-features = [ "test_i2c" ]
 name = "test-spi"
 path = "src/tests/test_spi.rs"
 required-features = [ "test_spi" ]
+
+[[bin]]
+name = "test-uart"
+path = "src/tests/test_uart.rs"
+required-features = [ "test_uart" ]
+
 
 [[bin]]
 name = "test-gpio"

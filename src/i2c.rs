@@ -1,5 +1,5 @@
 
-use embedded_hal::i2c::blocking::{Read, Write, WriteRead};
+use embedded_hal::i2c::{SevenBitAddress};
 
 use crate::Error;
 use self::api::{RBytes, WBytes};
@@ -78,9 +78,12 @@ impl I2c {
     }
 }
 
-impl Write for I2c {
+impl embedded_hal::i2c::ErrorType for I2c {
     type Error = Error;
+}
 
+
+impl embedded_hal::i2c::blocking::I2c<SevenBitAddress> for I2c {
     fn write(&mut self, address: u8, data: &[u8]) -> Result<(), Self::Error> {
 
         let b = RBytes{
@@ -96,10 +99,6 @@ impl Write for I2c {
 
         Ok(())
     }
-}
-
-impl Read for I2c {
-    type Error = Error;
 
     fn read<'w>(&mut self, address: u8, data: &'w mut [u8]) -> Result<(), Self::Error> {
 
@@ -116,10 +115,6 @@ impl Read for I2c {
 
         Ok(())
     }
-}
-
-impl WriteRead for I2c {
-    type Error = Error;
 
     fn write_read<'w>(&mut self, address: u8, data: &'w [u8], buff: &'w mut [u8]) -> Result<(), Self::Error> {
         //let d = data.as_ptr();
@@ -142,5 +137,40 @@ impl WriteRead for I2c {
         }
 
         Ok(())
+    }
+
+    //TODO: implement these APIs
+    fn write_iter<B>(&mut self, _address: SevenBitAddress, _bytes: B) -> Result<(), Self::Error>
+        where
+            B: IntoIterator<Item = u8> {
+        return Err(Error::Unimplemented)
+    }
+
+    //TODO: implement these APIs
+    fn write_iter_read<B>(
+            &mut self,
+            _address: SevenBitAddress,
+            _bytes: B,
+            _buffer: &mut [u8],
+        ) -> Result<(), Self::Error>
+        where
+            B: IntoIterator<Item = u8> {
+        return Err(Error::Unimplemented)
+    }
+
+    //TODO: implement these APIs
+    fn transaction<'a>(
+            &mut self,
+            _address: SevenBitAddress,
+            _operations: &mut [embedded_hal::i2c::blocking::Operation<'a>],
+        ) -> Result<(), Self::Error> {
+        return Err(Error::Unimplemented)
+    }
+
+    //TODO: implement these APIs
+    fn transaction_iter<'a, O>(&mut self, _ddress: SevenBitAddress, _operations: O) -> Result<(), Self::Error>
+        where
+            O: IntoIterator<Item = embedded_hal::i2c::blocking::Operation<'a>> {
+        return Err(Error::Unimplemented)
     }
 }

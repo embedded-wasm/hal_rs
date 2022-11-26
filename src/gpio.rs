@@ -1,6 +1,6 @@
 use core::marker::PhantomData;
 
-use embedded_hal::digital::blocking::*;
+use embedded_hal::digital::{blocking::*, ErrorType};
 
 use crate::Error;
 use api::{GpioMode};
@@ -99,9 +99,11 @@ impl <MODE> Gpio<MODE> {
     }
 }
 
-impl OutputPin for Gpio<Output> {
+impl <MODE> ErrorType for Gpio<MODE> {
     type Error = Error;
+}
 
+impl OutputPin for Gpio<Output> {
     fn set_high(&mut self) -> Result<(), Self::Error> {
 
         let res = unsafe { api::set(self.handle, GpioValue::High as u32) };
@@ -126,8 +128,6 @@ impl OutputPin for Gpio<Output> {
 }
 
 impl InputPin for Gpio<Input> {
-    type Error = Error;
-
     fn is_high(&self) -> Result<bool, Self::Error> {
         let mut v: u32 = 0;
         let p = &mut v;

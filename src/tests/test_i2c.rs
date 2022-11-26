@@ -1,6 +1,6 @@
 
 use wasm_embedded_hal::i2c::*;
-use embedded_hal::i2c::blocking::*;
+use embedded_hal::i2c::blocking::{I2c as _};
 
 fn main() {
     println!("Opening I2c device");
