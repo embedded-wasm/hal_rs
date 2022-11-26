@@ -25,7 +25,7 @@ mod api {
     #[link(wasm_import_module = "gpio")]
     extern "C" {
         /// Initialise the provided GPIO pin in input or output mode
-        pub fn init(port: u32, pin: u32, mode: u32, handle: &mut i32) -> i32;
+        pub fn init(port: i32, pin: i32, mode: i32, handle: &mut i32) -> i32;
 
         /// Deinitialise the specified GPIO pin
         pub fn deinit(handle: i32) -> i32;
@@ -65,10 +65,10 @@ pub struct Output;
 
 impl Gpio<Input> {
     /// Initialise a GPIO input pin
-    pub fn input(port: u32, pin: u32) -> Result<Self, Error> {
+    pub fn input(port: i32, pin: i32) -> Result<Self, Error> {
         let mut handle = 0;
         
-        let res = unsafe { api::init(port, pin, GpioMode::Input as u32, &mut handle) };
+        let res = unsafe { api::init(port, pin, GpioMode::Input as i32, &mut handle) };
         if res < 0 {
             return Err(Error::Runtime(res))
         }
@@ -79,10 +79,10 @@ impl Gpio<Input> {
 
 impl Gpio<Output> {
     /// Initialise a GPIO output pin
-    pub fn output(port: u32, pin: u32) -> Result<Self, Error> {
+    pub fn output(port: i32, pin: i32) -> Result<Self, Error> {
         let mut handle = 0;
         
-        let res = unsafe { api::init(port, pin, GpioMode::Output as u32, &mut handle) };
+        let res = unsafe { api::init(port, pin, GpioMode::Output as i32, &mut handle) };
         if res < 0 {
             return Err(Error::Runtime(res))
         }
