@@ -17,8 +17,8 @@ jobs:
     
     strategy:
       matrix:
-        tests: [ spi, i2c, gpio ]
-        runtimes: [ wasm3, wasmtime ]
+        test: [ spi, i2c, gpio ]
+        runtime: [ wasm3, wasmtime ]
 
     steps:
     - uses: actions/checkout@v2
