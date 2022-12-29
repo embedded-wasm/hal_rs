@@ -68,6 +68,10 @@ impl Gpio<Input> {
     pub fn input(port: i32, pin: i32) -> Result<Self, Error> {
         let mut handle = 0;
         
+        let cmd = wasm_embedded_spec::api::gpio_init_t{
+            port, pin, mode: GpioMode::Input as i32,
+        };
+
         let res = unsafe { api::init(port, pin, GpioMode::Input as i32, &mut handle) };
         if res < 0 {
             return Err(Error::Runtime(res))
